@@ -1,0 +1,411 @@
+﻿=======================================================================================================
+                                    [Шпаргалка для термінала]
+
+умовні позначенння в шляхах:
+.   | поточна папка
+..  | папка на рівень вище
+~   | папка home твого юзера
+
+pwd                             | папка в якій ти зараз знаходишся
+cd                              | перейти в home папку твого юзера (/home/<some_user>)
+cd /                            | перейти в кореневу папку системи (рут)
+cd some_folder                  | перейти в папку some_folder з місця де ти зараз
+cd some/nested/folder           | перейти у вкладену папку
+cd ..                           | повернутись на рівень назад
+cd ../../..                     | повернутись на 3 рівні назад
+cd -                            | повернутись у попередню папку;
+                                  дуже зручно коли випадково перейшов в home із якоїсь вкладеної і
+                                  не хочеш все з нуля передруковувати
+ls                              | список файлів в поточній папці кучою
+ls -l                           | список файлів таблицею (разом із cd - найчастіше вживана команда)
+ls -al                          | список файлів таблицею + включаючи приховані файли (e.g. .bashrc)
+ls -l | grep -i xyz             | із загального списку файлів вибрати тільки ті, що мають в назві xyz;
+                                  grep можна використовувати з будь-якими іншими командами, які виводять
+                                  інфу на екран
+                                  параметр -i означає ignore case - не брати до уваги регістр символів при пошуці,
+                                  grep XYz i grep xyz дадуть той самий результат
+ls -l some/folder               | список файлів в якомусь іншому місці
+cat file.txt                    | показати вміст файлу file.txt; зручно тільки з малими файлами
+touch magic.py                  | створити файл magic.py в поточній папці
+mkdir folder                    | створити папку folder в поточній папці
+mv magic.py folder/magic.py     | перемістити файл в підпапку
+mv magic.py super_magic.py      | перейменувати файл (ага, та сама команда, що і для переміщення)
+mv magic.py folder/magic_2.py   | перемістити файл в підпапку + перейменувати нальоту
+mv folder new_folder            | перейменувати папку; переміщення працює по аналогії
+cp magic.py folder/magic.py     | скопіювати файл в підпапку
+cp magic.py folder/magic_2.py   | скопіювати файл в підпапку + перейменувати нальоту
+cp magic.py magic.py.backup     | створити копію файла з іншим іменем, наприклад для бекапа
+cp magic.py ../magic.py         | скопіювати файл у папку рівнем вище
+cp magic.py ../../../magic.py   | скопіювати файл у папку 3 рівня вище
+rm magic.py                     | видалити файл
+rmdir folder                    | видалити папку (спрацює тільки якщо папка пуста!)
+rm -r folder                    | видалити папку і все що в ній
+gio open .                      | відкрити поточну папку у дефолтному файловому менеджері
+which <app>                     | папка, де знаходиться програма
+
+uname -a                        | інформація про версію os, ядра, платформи і т.д.
+w                               | список залогінених юзерів (має бути один)
+htop                            | диспетчер задач + ресурсів, не дефолтний: sudo snap install htop
+
+<app> --help                    | викликати довідку для утиліти <app>
+    або
+<app> -h
+    або
+<app> help
+    або
+man <app>
+
+<app> <command> --help          | так саме можна викликати довідку для підкоманди, якщо вона має
+<app> <command> -h                свої окремі настройки/параметри
+<app> <command> help              наприклад pyenv --help і pyenv install --help буде давати різну довідку
+
+ctrl + l                        | очистити вікно термінала
+ctrl + shift + t                | створити нову вкладку термінала
+alt + 1 / 2 / ...               | переключення між вкладками
+ctrl + shift + c                | скопіювати щось з термінала
+ctrl + shift + v                | вставити щось в термінал
+ctrl + c                        | вийти з програми (типу htop); в консольці python'a - перервати ввід команди
+ctrl + d                        | як ctrl + c, але працює лише з деякими прогами; наприклад щоб вийти з консольки python'a
+
+
+> якщо стоїть Sublime Text
+
+subl .                          | відкрити поточну папку в новому вікні Sublime Text
+subl folder                     | відкрити підпапку в новому вікні Sublime Text
+subl magic.py                   | відкрити один файл в Sublime Text в останньому активному вікні
+
+
+> якщо стоїть VS Code
+
+code .                          | відкрити поточну папку в новому вікні VS Code
+code folder                     | відкрити підпапку в новому вікні VS Code
+code magic.py                   | відкрити один файл в VS Code в новому вікні
+code -r magic.py                | відкрити один файл в VS Code в останньому активному вікні
+
+
+> редагування файлів в редакторі nano (якщо Sublime чи VS Code ще не стоять)
+
+nano file.txt                   | відкрити файл в nano
+sudo nano /etc/hosts            | ...для системних файлів треба використовувати sudo
+ctrl + o, enter                 | зберегти файл
+ctrl + x                        | вийти
+
+
+> ~/.bashrc
+цей файл підгружається, коли ти створюєш нову вкладку термінала
+по суті, це ті самі bash команди, але в якості постійних настройок або параметрів
+
+=== все своє дописувати в КІНЕЦЬ файла ===
+
+сюди можна загнати alias'и на команди, які хотілося б зробити коротшими
+наприклад, якщо тебе напрягає кожен раз писати ls -l, можна скоротити до ls чи ll чи ще чогось
+
+alias ls="ls -l"
+
+після збереження треба або створити нову вкладку (щоб новий .bashrc підгрузився) або
+перезавантажити його вручну через:
+
+source ~/.bashrc
+
+якщо аліас перекриває оригінальну команду (як у випадку із ls), запустити оригінальну можна через:
+
+command ls
+
+так як міняти .bashrc ти будеш часто - можна забити alias'и для швидкого редагування, наприклад:
+
+alias sz="subl ~/.bashrc"       | sz - відкриє .bashrc в sublime'і
+alias sd="source ~/.bashrc"     | sd - перезагрузить .bashrc в поточному вікні термінала
+
+по аналогії:
+
+alias o="gio open ."            | щоб швидше відкрити провідник
+
+.bashrc також часто використовується для збереження перемінних оточення (ENV, environment variables)
+наприклад, якщо тобі треба вказати ключ до якоїсь апішки, чи URL до БД, чи просто виставити флажок:
+
+export SERVICE_API_KEY="abcde12345"
+export SOME_DB_URL="postgresql://..."
+export PYTHON_IS_COOL=true
+
+із python'a:
+
+import os
+os.getenv("SERVICE_API_KEY")
+#=> 'abcde12345'
+
+таким чином конфіденційна інфа типу ключів, паролів і т.д. не буде попадати в сам код
+
+
+Bash - це не єдине оточення, яке використовується в терміналах. Є ще Zsh (покращений bash), fish і т.д.
+
+
+=======================================================================================================
+                                        [Python / pyenv]
+
+в Xubuntu з коробки стоїть python версії 3.10.6 (python3 --version), але його краще не чіпати
+він використовується для системних штук і якщо ти почнеш щось доставляти (pip install) або видаляти (pip uninstall)
+можна поламати саму систему, при цьому сам Linux тебе зупиняти не буде - в тебе повна свобода дій
+
+щоб такого не сталось, для розробки варто поставити python окремо + тої версії, яка тобі треба
+для цього існують менеджери версій, такі як:
+- pyenv (для пітона)
+- asdf (універсальний, багато мов)
+- conda (універсальний, багато мов)
+
+самий простий з них pyenv, він був створений по аналогії до rbenv для Ruby
+як поставити + всі доки тут:
+https://github.com/pyenv/pyenv
+
+якщо коротко:
+
+чекни чи стоїть в тебе git:
+git --version
+
+якщо немає:
+sudo apt update
+sudo apt install git
+
+додаткові ліби для компіляції самого пітона:
+sudo apt update
+sudo apt install build-essential libncursesw5-dev libgdbm-dev libc6-dev zlib1g-dev libsqlite3-dev tk-dev libssl-dev openssl libffi-dev libncurses5-dev libnss3-dev libreadline-dev libbz2-dev liblzma-dev
+
+далі:
+cd
+git clone https://github.com/pyenv/pyenv.git ~/.pyenv
+echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.bashrc
+echo 'command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.bashrc
+echo 'eval "$(pyenv init -)"' >> ~/.bashrc
+
+останні 3 строки добавлять в .bashrc потрібні записи
+після цього перезагрузи .bashrc
+
+source ~/.bashrc
+
+далі:
+pyenv
+
+якщо відобразився help, знач все ок
+тепер можна ставити сам пітон
+
+показати всі доступні версії:
+pyenv install --list
+
+остання з класичних - 3.11.1, ставимо її:
+pyenv install 3.11.1
+
+може зайняти трохи часу, залежить від процесора
+якщо в процесі не вилізло ніяких помилок, типу щось missing або not found - гуд
+
+в ідеалі в консолі буде просто:
+Installing Python-3.11.1...
+Installed Python-3.11.1 to /home/<user>/.pyenv/versions/3.11.1
+
+перевірити які версії встановлені:
+pyenv versions
+
+має бути:
+* system  (* - активна версія)
+  3.11.1
+
+треба активувати останню:
+pyenv global 3.11.1
+
+перевірити:
+python3 --version
+python --version
+#=> Python 3.11.1
+
+якщо тобі треба тримати декілька різних версій пітона для різних проектів можна встановити
+через pyenv install всі потрібні і потім створити файл .python-version в кореневій папці
+кожного з проектів із версією пітона, яку використовувати
+наприклад:
+
+cat ~/projects/project_1/.python-version
+3.11.1
+
+cat ~/projects/project_2/.python-version
+3.10.9
+
+в папці project_1 в тебе буде автоматично активований пітон версії 3.11.1
+а в project_2 - 3.10.9
+якщо файла .python-version немає - буде братися та версія, яка була вказана в pyenv global
+
+після цього можна доставляти всі потрібні бібліотеки (типу django) через pip і фігачити код :)
+
+--------------------------------------- плагін pyenv віртуальне середовище -------------------------------------------------
+
+git clone https://github.com/pyenv/pyenv-virtualenv.git $(pyenv root)/plugins/pyenv-virtualenv - плагін pyenv
+pyenv virtualenv <python_version> <virtualenv_name> | створення віртуального середовища
+pyenv activate <name>                               | активація віртуального середовища
+pyenv deactivate                                    | деактивація віртуального середовища
+chmod +x hello_word.py                              | надання права доступу на запуск
+
+
+=======================================================================================================
+                                         [Sublime Text]
+
+[ Встановлення ]
+
+wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/sublimehq-archive.gpg > /dev/null
+echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
+sudo apt update
+sudo apt install sublime-text
+
+саблайм умовно безплатний, без ліцензії ти не втрачаєш функціонал, але час від часу буде вилазити алерт
+із нагадуванням його зареєструвати; щоб він не вилазив можна саблайм пропатчити
+
+спочатку заблокувати в hosts урли саблайма
+
+sudo nano /etc/hosts
+
+добавити в кінець (через ctrl + shift + v)
+
+127.0.0.1 www.sublimetext.com
+127.0.0.1 sublimetext.com
+127.0.0.1 sublimehq.com
+127.0.0.1 telemetry.sublimehq.com
+127.0.0.1 license.sublimehq.com
+127.0.0.1 45.55.255.55
+127.0.0.1 45.55.41.223
+0.0.0.0 license.sublimehq.com
+0.0.0.0 45.55.255.55
+0.0.0.0 45.55.41.223
+
+ctrl + o, enter   (зберегти)
+ctrl + x          (вийти)
+
+зроби бекап бінарника саблайма
+sudo cp /opt/sublime_text/sublime_text ~/sublime_text_backup
+
+поміняй власника файла з root на твого юзера:
+sudo chown <your_user> ~/sublime_text_backup
+наприклад:
+sudo chown admin ~/sublime_text_backup
+
+відкрий в браузері https://hexed.it/
+open file, знайди sublime_text_backup
+в поле "search for" справа введи: 80 78 05 00 0F 94 C1
+enter
+знайде одне місце із цими байтами
+в редакторі поверх них надрукуй C6 40 05 01 48 85 C9
+export
+пропатчений файл загрузиться в ~/Downloads
+
+після цього поміняй власника назад:
+sudo chown root ~/Downloads/sublime_text_backup
+
+і заміни оригінальний:
+sudo cp ~/Downloads/sublime_text_backup /opt/sublime_text/sublime_text
+
+все, в саблаймі Help - About Sublime Text має писати Unlimited User License
+
+~/Downloads/sublime_text_backup і ~/sublime_text_backup можна видалити
+
+
+[ Настройка ]
+
+показувати дерево файлів:
+View - Side Bar - Show Open Files
+
+встановити менеджер пакетів, каталог: https://packagecontrol.io/
+Ctrl + Shift + P -> Install Package Control
+
+тема і стиль підсвітки синтаксису суб'єктивна штука, але в мене така:
+Ctrl + Shift + P -> Color... -> UI: Select Color Scheme -> Monokai
+Ctrl + Shift + P -> Install Package... -> Afterglow
+
+Preferences - Settings, зліва дефолтні настройки, справа - твої власні
+заміни все справа ось цим:
+
+{
+    "close_windows_when_empty": false,
+    "color_scheme": "Monokai.sublime-color-scheme",
+    "fallback_encoding": "Cyrillic (Windows 1251)",
+    "ignored_packages":
+    [
+        "Vintage",
+    ],
+    "index_exclude_patterns":
+    [
+        "*.log",
+        "*.xml",
+        "node_modules/*",
+        "tmp/*"
+    ],
+    "scroll_past_end": true,
+    "show_encoding": true,
+    "sidebar_row_padding_medium": false,
+    "sidebar_size_12": true,
+    "status_bar_brighter": true,
+    "tabs_medium": true,
+    "theme": "Afterglow-blue.sublime-theme",
+    "translate_tabs_to_spaces": true,
+    "ui_native_titlebar": false,
+    "font_options": ["no_italic"],
+    "update_check": false,
+    "trim_trailing_white_space_on_save": "not_on_caret",
+    "ensure_newline_at_eof_on_save": true,
+}
+
+якщо в тебе на екрані щось завелике/замале (наприклад, текст в сайдбарі, вкладки і т.д.), можна це
+поправити настройками самої теми:
+https://packagecontrol.io/packages/Theme%20-%20Afterglow
+...або настройками із Preferences - Settings зліва
+
+тепер на рахунок лінтера для пітона
+Ctrl + Shift + P - Install Package... - SublimeLinter
+Ctrl + Shift + P - Install Package... - SublimeLinter-pylint
+
+в терміналі
+pip install pylint
+
+в саблаймі
+Preferences - Package Settings - Sublime Linter - Settings
+
+заміни все справа на це:
+{
+    "linters": {
+        "pylint": {
+            "args": [
+                "--disable=C0111"
+            ]
+        }
+    },
+    "paths": {
+        "linux": [
+            "~/.pyenv/shims/"
+        ]
+    }
+}
+
+якщо тебе будуть напрягати котрісь із дефолтних warning'ів (як з C0111 про відсутні docstrings),
+їх можна по аналогії виключити:
+...
+"args": [
+    "--disable=C0111",
+    "--disable=C****",
+    ...
+]
+...
+
+лінтер буде спрацьовувати кожен раз, коли ти зберігаєш файл
+лінтери є і для інших мов
+якщо лінтер не запрацював зразу - перезавнтаж саблайм
+як альтернатива лінтеру є LSP (Language Server Protocol), який має ширший функціонал, але дещо важчий в настройці
+
+
+щоб відступи в python файлах завжди були 2
+відкрий будь-який .py файл
+Preferences - Settings-Syntax Specific
+
+добав/заміни:
+{
+    "tab_size": 2
+}
+
+
+ще про Package Control:
+список всіх встановлених пакетів: Ctrl + Shift + P - List Packages...
+видалити пакет:                   Ctrl + Shift + P - Remove Package...
+деактивувати пакет:               Ctrl + Shift + P - Disable Package...
+активувати пакет:                 Ctrl + Shift + P - Enable Package...
